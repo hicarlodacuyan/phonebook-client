@@ -22,7 +22,7 @@ function PersonList({ persons, setPersons }) {
   };
 
   return (
-    <ul className="bg-slate-700 text-white p-4">
+    <ul className="border-solid border-2 border-slate-500 p-4">
       {persons.map((person) => (
         <li key={person.id} className="flex items-center justify-between">
           • {person.name} ({person.number})

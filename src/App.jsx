@@ -1,9 +1,9 @@
-import { useState } from "react";
 import "./App.css";
-import PersonList from "./components/PersonList";
-import PersonForm from "./components/PersonForm";
-import loginService from "./services/loginService";
+import { useEffect, useState } from "react";
+import { Routes, Route } from "react-router-dom";
 import personService from "./services/personService";
+import Phonebook from "./pages/Phonebook";
+import LoginForm from "./components/LoginForm";
 
 function App() {
   const [persons, setPersons] = useState([]);
@@ -11,61 +11,44 @@ function App() {
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
 
-  const handleLogin = (e) => {
-    e.preventDefault();
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem("loggedPhonebookUser");
 
-    loginService
-      .login({ username, password })
-      .then((res) => {
-        personService.setToken(res.token);
-        setUser(res);
-        setUsername("");
-        setPassword("");
-      })
-      .catch((error) => console.log(error));
-  };
-
-  const loginForm = () => {
-    return (
-      <form onSubmit={handleLogin} className="bg-gray-500 p-4">
-        <div>
-          <label>Username</label>
-          <input
-            type="text"
-            name="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </div>
-        <div>
-          <label>Password</label>
-          <input
-            type="text"
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <button type="submit" className="bg-blue-500 p-2">
-          Login
-        </button>
-      </form>
-    );
-  };
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON);
+      setUser(user);
+      personService.setToken(user.token);
+    }
+  }, []);
 
   return (
     <div className="flex flex-col gap-4 p-4">
-      <h1 className="text-4xl">Phonebook</h1>
-
-      {user === null ? (
-        loginForm()
-      ) : (
-        <>
-          <h2>{user.name} is logged in</h2>
-          <PersonList persons={persons} setPersons={setPersons} />
-          <PersonForm persons={persons} setPersons={setPersons} />
-        </>
-      )}
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Phonebook
+              user={user}
+              persons={persons}
+              setPersons={setPersons}
+              setUser={setUser}
+            />
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <LoginForm
+              user={user}
+              username={username}
+              password={password}
+              setUsername={setUsername}
+              setPassword={setPassword}
+              setUser={setUser}
+            />
+          }
+        />
+      </Routes>
     </div>
   );
 }
