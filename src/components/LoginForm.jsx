@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import loginService from "../services/loginService";
 import personService from "../services/personService";
 
@@ -29,7 +29,7 @@ function LoginForm({
         setUsername("");
         setPassword("");
       })
-      .catch((error) => console.log(error));
+      .catch((error) => alert(error.response.data.error));
   };
 
   return (
@@ -65,6 +65,12 @@ function LoginForm({
           Login
         </button>
       </form>
+      <p className="text-center">
+        Don't have an account?{" "}
+        <Link to="/register" className="text-blue-500">
+          Register here.
+        </Link>
+      </p>
     </div>
   );
 }

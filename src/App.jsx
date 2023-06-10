@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import personService from "./services/personService";
 import Phonebook from "./pages/Phonebook";
 import LoginForm from "./components/LoginForm";
+import RegisterForm from "./components/RegisterForm";
 
 function App() {
   const [persons, setPersons] = useState([]);
@@ -48,6 +49,7 @@ function App() {
             />
           }
         />
+        <Route path="/register" element={<RegisterForm user={user} />} />
       </Routes>
     </div>
   );
