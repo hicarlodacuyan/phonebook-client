@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import personService from "../services/personService";
 import { FaTrashAlt } from "react-icons/fa";
 
-function PersonList({ persons, setPersons }) {
+function PersonList({ persons, setPersons, setLoading }) {
   useEffect(() => {
     personService
       .getPersons()
@@ -13,12 +13,14 @@ function PersonList({ persons, setPersons }) {
   }, []);
 
   const deletePerson = (id) => {
+    setLoading(true);
     personService
       .deletePerson(id)
       .then((_response) => {
         setPersons(persons.filter((person) => person.id !== id));
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error))
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -26,7 +28,7 @@ function PersonList({ persons, setPersons }) {
       {persons.map((person) => (
         <li key={person.id} className="flex items-center justify-between">
           <span className="w-10">
-            <img src={person.photoUrl} alt="Contact photo" />
+            <img src={person.photoInfo.url} alt="Contact photo" />
           </span>
           {person.name} ({person.number})
           <FaTrashAlt

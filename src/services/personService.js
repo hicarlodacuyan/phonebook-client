@@ -25,7 +25,11 @@ function createPerson(person) {
 }
 
 function deletePerson(id) {
-  return axios.delete(`${baseUrl}/${id}`).then((res) => res.status);
+  const config = {
+    headers: { Authorization: token },
+  };
+
+  return axios.delete(`${baseUrl}/${id}`, config).then((res) => res.status);
 }
 
 export default {

@@ -31,7 +31,11 @@ function Phonebook({
 
       {user && (
         <>
-          <PersonList persons={persons} setPersons={setPersons} />
+          <PersonList
+            persons={persons}
+            setPersons={setPersons}
+            setLoading={setLoading}
+          />
           <PersonForm
             persons={persons}
             setPersons={setPersons}
