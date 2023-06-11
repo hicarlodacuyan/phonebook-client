@@ -25,7 +25,10 @@ function PersonList({ persons, setPersons }) {
     <ul className="border-solid border-2 border-slate-500 p-4">
       {persons.map((person) => (
         <li key={person.id} className="flex items-center justify-between">
-          • {person.name} ({person.number})
+          <span className="w-10">
+            <img src={person.photoUrl} alt="Contact photo" />
+          </span>
+          {person.name} ({person.number})
           <FaTrashAlt
             className="hover: cursor-pointer"
             onClick={() => deletePerson(person.id)}

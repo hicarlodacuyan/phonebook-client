@@ -18,7 +18,7 @@ function getPersons() {
 
 function createPerson(person) {
   const config = {
-    headers: { Authorization: token },
+    headers: { Authorization: token, "Content-Type": "multipart/form-data" },
   };
 
   return axios.post(baseUrl, person, config).then((res) => res.data);

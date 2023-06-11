@@ -1,24 +1,28 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import personService from "../services/personService";
 
 function PersonForm({ persons, setPersons }) {
+  const [newPhoto, setNewPhoto] = useState(null);
   const [newPerson, setNewPerson] = useState("");
   const [newNumber, setNewNumber] = useState("");
+  const fileInputRef = useRef();
 
   const addPerson = (e) => {
     e.preventDefault();
 
-    const personObject = {
-      name: newPerson,
-      number: newNumber,
-    };
+    const newPersonData = new FormData();
+    newPersonData.append("image", newPhoto);
+    newPersonData.append("name", newPerson);
+    newPersonData.append("number", newNumber);
 
     personService
-      .createPerson(personObject)
+      .createPerson(newPersonData)
       .then((returnedPerson) => {
         setPersons(persons.concat(returnedPerson));
+        setNewPhoto("");
         setNewPerson("");
         setNewNumber("");
+        fileInputRef.current.value = null;
       })
       .catch((error) => console.log(error));
   };
@@ -28,6 +32,16 @@ function PersonForm({ persons, setPersons }) {
       onSubmit={addPerson}
       className="flex flex-col gap-4 p-4 border-solid border-2 border-slate-500"
     >
+      <div className="flex flex-col">
+        <label>Upload contact photo</label>
+        <input
+          className="border-solid border-2 border-slate-500 p-2"
+          type="file"
+          accept="image/*"
+          ref={fileInputRef}
+          onChange={(e) => setNewPhoto(e.target.files[0])}
+        />
+      </div>
       <div className="flex flex-col">
         <label>Name</label>
         <input
