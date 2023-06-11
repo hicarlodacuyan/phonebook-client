@@ -11,6 +11,7 @@ function App() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem("loggedPhonebookUser");
@@ -31,8 +32,10 @@ function App() {
             <Phonebook
               user={user}
               persons={persons}
+              loading={loading}
               setPersons={setPersons}
               setUser={setUser}
+              setLoading={setLoading}
             />
           }
         />

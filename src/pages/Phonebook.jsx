@@ -2,8 +2,16 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import PersonList from "../components/PersonList";
 import PersonForm from "../components/PersonForm";
+import LoadingSpinner from "../components/LoadingSpinner";
 
-function Phonebook({ user, persons, setPersons, setUser }) {
+function Phonebook({
+  user,
+  persons,
+  loading,
+  setPersons,
+  setUser,
+  setLoading,
+}) {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -15,6 +23,8 @@ function Phonebook({ user, persons, setPersons, setUser }) {
     setUser(null);
   };
 
+  if (loading) return <LoadingSpinner />;
+
   return (
     <div className="flex flex-col gap-2">
       <h1 className="text-4xl mb-4 text-center font-bold">Phonebook</h1>
@@ -22,7 +32,11 @@ function Phonebook({ user, persons, setPersons, setUser }) {
       {user && (
         <>
           <PersonList persons={persons} setPersons={setPersons} />
-          <PersonForm persons={persons} setPersons={setPersons} />
+          <PersonForm
+            persons={persons}
+            setPersons={setPersons}
+            setLoading={setLoading}
+          />
         </>
       )}
 

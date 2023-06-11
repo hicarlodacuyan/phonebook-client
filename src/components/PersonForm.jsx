@@ -1,14 +1,20 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import personService from "../services/personService";
 
-function PersonForm({ persons, setPersons }) {
+function PersonForm({ persons, setPersons, setLoading }) {
   const [newPhoto, setNewPhoto] = useState(null);
   const [newPerson, setNewPerson] = useState("");
   const [newNumber, setNewNumber] = useState("");
-  const fileInputRef = useRef();
+  const fileInputRef = useRef(null);
+
+  useEffect(() => {
+    fileInputRef.current.value = null;
+  }, [fileInputRef]);
 
   const addPerson = (e) => {
     e.preventDefault();
+
+    setLoading(true);
 
     const newPersonData = new FormData();
     newPersonData.append("image", newPhoto);
@@ -22,9 +28,9 @@ function PersonForm({ persons, setPersons }) {
         setNewPhoto("");
         setNewPerson("");
         setNewNumber("");
-        fileInputRef.current.value = null;
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error))
+      .finally(() => setLoading(false));
   };
 
   return (
