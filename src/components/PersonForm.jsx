@@ -1,8 +1,13 @@
 import { useState, useRef, useEffect } from "react";
 import personService from "../services/personService";
 
-function PersonForm({ persons, setPersons, setLoading }) {
-  const [newPhoto, setNewPhoto] = useState(null);
+function PersonForm({
+  persons,
+  setPersons,
+  setLoading,
+  newPhoto,
+  setNewPhoto,
+}) {
   const [newPerson, setNewPerson] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const fileInputRef = useRef(null);

@@ -1,7 +1,8 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import PersonList from "../components/PersonList";
 import PersonForm from "../components/PersonForm";
+import EditPersonForm from "../components/EditPersonForm";
 import LoadingSpinner from "../components/LoadingSpinner";
 
 function Phonebook({
@@ -12,6 +13,8 @@ function Phonebook({
   setUser,
   setLoading,
 }) {
+  const [editPerson, setEditPerson] = useState(null);
+  const [newPhoto, setNewPhoto] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -35,12 +38,27 @@ function Phonebook({
             persons={persons}
             setPersons={setPersons}
             setLoading={setLoading}
+            setEditPerson={setEditPerson}
           />
-          <PersonForm
-            persons={persons}
-            setPersons={setPersons}
-            setLoading={setLoading}
-          />
+          {editPerson ? (
+            <EditPersonForm
+              newPhoto={newPhoto}
+              setNewPhoto={setNewPhoto}
+              setLoading={setLoading}
+              persons={persons}
+              person={editPerson}
+              setPersons={setPersons}
+              onCancel={() => setEditPerson(null)}
+            />
+          ) : (
+            <PersonForm
+              newPhoto={newPhoto}
+              setNewPhoto={setNewPhoto}
+              persons={persons}
+              setPersons={setPersons}
+              setLoading={setLoading}
+            />
+          )}
         </>
       )}
 

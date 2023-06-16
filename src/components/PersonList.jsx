@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import personService from "../services/personService";
-import { FaTrashAlt } from "react-icons/fa";
+import { FaTrashAlt, FaUserEdit } from "react-icons/fa";
 
-function PersonList({ persons, setPersons, setLoading }) {
+function PersonList({ persons, setPersons, setLoading, setEditPerson }) {
   useEffect(() => {
     personService
       .getPersons()
@@ -11,6 +11,10 @@ function PersonList({ persons, setPersons, setLoading }) {
       })
       .catch((error) => console.log(error));
   }, []);
+
+  const editPerson = (person) => {
+    setEditPerson(person);
+  };
 
   const deletePerson = (id) => {
     setLoading(true);
@@ -31,10 +35,16 @@ function PersonList({ persons, setPersons, setLoading }) {
             <img src={person.photoInfo.url} alt="Contact photo" />
           </span>
           {person.name} ({person.number})
-          <FaTrashAlt
-            className="hover: cursor-pointer"
-            onClick={() => deletePerson(person.id)}
-          />
+          <div className="flex gap-2">
+            <FaUserEdit
+              className="hover: cursor-pointer"
+              onClick={() => editPerson(person)}
+            />
+            <FaTrashAlt
+              className="hover: cursor-pointer"
+              onClick={() => deletePerson(person.id)}
+            />
+          </div>
         </li>
       ))}
     </ul>

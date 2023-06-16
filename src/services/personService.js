@@ -24,6 +24,14 @@ function createPerson(person) {
   return axios.post(baseUrl, person, config).then((res) => res.data);
 }
 
+function updatePerson(id, person) {
+  const config = {
+    headers: { Authorization: token },
+  };
+
+  return axios.put(`${baseUrl}/${id}`, person, config).then((res) => res.data);
+}
+
 function deletePerson(id) {
   const config = {
     headers: { Authorization: token },
@@ -35,6 +43,7 @@ function deletePerson(id) {
 export default {
   getPersons,
   createPerson,
+  updatePerson,
   deletePerson,
   setToken,
 };
