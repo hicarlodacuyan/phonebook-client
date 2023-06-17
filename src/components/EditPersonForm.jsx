@@ -11,7 +11,7 @@ function EditPersonForm({
   setPersons,
 }) {
   const [newPerson, setNewPerson] = useState(person);
-  const { id, name, number, photoInfo } = newPerson;
+  const { id, name, number } = newPerson;
   const fileInputRef = useRef(null);
 
   const handleUpdate = (e) => {
@@ -21,9 +21,7 @@ function EditPersonForm({
     const updatedPerson = new FormData();
     updatedPerson.append("name", name);
     updatedPerson.append("number", number);
-    newPhoto
-      ? updatedPerson.append("image", newPhoto)
-      : updatedPerson.append("photoInfo", photoInfo);
+    newPhoto ? updatedPerson.append("image", newPhoto) : null;
 
     personService
       .updatePerson(id, updatedPerson)
@@ -34,6 +32,7 @@ function EditPersonForm({
           )
         );
 
+        setNewPhoto(null);
         onCancel();
       })
       .catch((error) => console.log(error))
