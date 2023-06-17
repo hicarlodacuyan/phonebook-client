@@ -1,15 +1,15 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
+import PersonContext from "../features/PersonContext";
 import personService from "../services/personService";
 
 function EditPersonForm({
   person,
-  persons,
   onCancel,
   newPhoto,
   setNewPhoto,
   setLoading,
-  setPersons,
 }) {
+  const { persons, setPersons } = useContext(PersonContext);
   const [newPerson, setNewPerson] = useState(person);
   const { id, name, number } = newPerson;
   const fileInputRef = useRef(null);

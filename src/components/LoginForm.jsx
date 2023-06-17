@@ -1,16 +1,11 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import loginService from "../services/loginService";
 import personService from "../services/personService";
 
-function LoginForm({
-  user,
-  username,
-  password,
-  setUsername,
-  setPassword,
-  setUser,
-}) {
+function LoginForm({ user, setUser }) {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {

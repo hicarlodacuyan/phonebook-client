@@ -1,13 +1,9 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
+import PersonContext from "../features/PersonContext";
 import personService from "../services/personService";
 
-function PersonForm({
-  persons,
-  setPersons,
-  setLoading,
-  newPhoto,
-  setNewPhoto,
-}) {
+function PersonForm({ setLoading, newPhoto, setNewPhoto }) {
+  const { persons, setPersons } = useContext(PersonContext);
   const [newPerson, setNewPerson] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const fileInputRef = useRef(null);

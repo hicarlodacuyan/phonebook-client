@@ -1,8 +1,11 @@
-import { useEffect } from "react";
-import personService from "../services/personService";
+import { useEffect, useContext } from "react";
 import { FaTrashAlt, FaUserEdit } from "react-icons/fa";
+import PersonContext from "../features/PersonContext";
+import personService from "../services/personService";
 
-function PersonList({ persons, setPersons, setLoading, setEditPerson }) {
+function PersonList({ setLoading, setEditPerson }) {
+  const { persons, setPersons } = useContext(PersonContext);
+
   useEffect(() => {
     personService
       .getPersons()
