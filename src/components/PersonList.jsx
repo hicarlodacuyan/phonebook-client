@@ -31,7 +31,7 @@ function PersonList({ setLoading, setEditPerson }) {
   };
 
   return (
-    <ul className="border-solid border-2 border-slate-500 p-4">
+    <ul className="border-solid border-2 border-slate-500 p-4 mb-2 md:max-w-xl md:mx-auto">
       {persons.map((person) => (
         <li key={person.id} className="flex items-center justify-between">
           <span className="w-10">

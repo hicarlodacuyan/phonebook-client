@@ -21,32 +21,45 @@ function Phonebook({ user, setUser }) {
     setUser(null);
   };
 
-  if (loading) return <LoadingSpinner />;
+  if (loading) {
+    return (
+      <div className="flex flex-col h-screen items-center justify-center">
+        <LoadingSpinner />
+      </div>
+    );
+  }
 
   return (
-    <div className="flex flex-col gap-2">
-      <h1 className="text-4xl mb-4 text-center font-bold">Phonebook</h1>
-      {user && (
-        <>
-          <PersonList setLoading={setLoading} setEditPerson={setEditPerson} />
-          {editPerson ? (
-            <EditPersonForm
-              person={editPerson}
-              newPhoto={newPhoto}
-              setNewPhoto={setNewPhoto}
-              setLoading={setLoading}
-              onCancel={() => setEditPerson(null)}
-            />
-          ) : (
-            <PersonForm
-              newPhoto={newPhoto}
-              setNewPhoto={setNewPhoto}
-              setLoading={setLoading}
-            />
+    <div className="flex flex-col gap-2 h-screen mx-4">
+      <div className="flex-1">
+        <h1 className="text-4xl mb-4 text-center font-bold">Phonebook</h1>
+        <div>
+          {user && (
+            <>
+              <PersonList
+                setLoading={setLoading}
+                setEditPerson={setEditPerson}
+              />
+              {editPerson ? (
+                <EditPersonForm
+                  person={editPerson}
+                  newPhoto={newPhoto}
+                  setNewPhoto={setNewPhoto}
+                  setLoading={setLoading}
+                  onCancel={() => setEditPerson(null)}
+                />
+              ) : (
+                <PersonForm
+                  newPhoto={newPhoto}
+                  setNewPhoto={setNewPhoto}
+                  setLoading={setLoading}
+                />
+              )}
+            </>
           )}
-        </>
-      )}
-      <p className="flex justify-between items-center text-sm">
+        </div>
+      </div>
+      <p className="flex justify-between items-center text-sm my-4">
         {user?.name} is logged in{" "}
         <button
           onClick={handleLogout}

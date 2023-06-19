@@ -48,7 +48,7 @@ function EditPersonForm({
 
   return (
     <form
-      className="flex flex-col gap-4 p-4 border-solid border-2 border-slate-500"
+      className="flex flex-col gap-4 p-4 border-solid border-2 border-slate-500 md:max-w-xl md:mx-auto"
       onSubmit={handleUpdate}
     >
       <div className="flex flex-col">

@@ -37,7 +37,7 @@ function PersonForm({ setLoading, newPhoto, setNewPhoto }) {
   return (
     <form
       onSubmit={addPerson}
-      className="flex flex-col gap-4 p-4 border-solid border-2 border-slate-500"
+      className="flex flex-col gap-4 p-4 border-solid border-2 border-slate-500 md:max-w-xl md:mx-auto"
     >
       <div className="flex flex-col">
         <label>Upload contact photo</label>
