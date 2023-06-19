@@ -24,23 +24,21 @@ function App() {
   }, []);
 
   return (
-    <div className="flex flex-col gap-4 p-4">
-      <PersonContext.Provider value={{ persons, setPersons }}>
-        <LoadingContext.Provider value={{ loading, setLoading }}>
-          <Routes>
-            <Route
-              path="/"
-              element={<Phonebook user={user} setUser={setUser} />}
-            />
-            <Route
-              path="/login"
-              element={<LoginForm user={user} setUser={setUser} />}
-            />
-            <Route path="/register" element={<RegisterForm user={user} />} />
-          </Routes>
-        </LoadingContext.Provider>
-      </PersonContext.Provider>
-    </div>
+    <PersonContext.Provider value={{ persons, setPersons }}>
+      <LoadingContext.Provider value={{ loading, setLoading }}>
+        <Routes>
+          <Route
+            path="/"
+            element={<Phonebook user={user} setUser={setUser} />}
+          />
+          <Route
+            path="/login"
+            element={<LoginForm user={user} setUser={setUser} />}
+          />
+          <Route path="/register" element={<RegisterForm user={user} />} />
+        </Routes>
+      </LoadingContext.Provider>
+    </PersonContext.Provider>
   );
 }
 

@@ -34,7 +34,7 @@ function LoginForm({ user, setUser }) {
       </h1>
       <form
         onSubmit={handleLogin}
-        className="border-solid border-2 border-slate-500 p-4 flex flex-col gap-2"
+        className="border-solid border-2 border-slate-500 p-4 m-4 flex flex-col gap-2"
       >
         <div className="flex flex-col">
           <label>Username</label>

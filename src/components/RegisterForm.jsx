@@ -27,13 +27,13 @@ function RegisterForm({ user }) {
   };
 
   return (
-    <div className="flex flex-col gap-2">
+    <div>
       <h1 className="text-4xl mb-4 text-center font-bold">
         Register an account
       </h1>
       <form
         onSubmit={handleRegistration}
-        className="p-4 flex flex-col gap-2 border-solid border-2 border-slate-500 md:mx-auto md:w-1/2 lg:w-1/4"
+        className="m-4 p-4 flex flex-col gap-2 border-solid border-2 border-slate-500"
       >
         <div className="flex flex-col">
           Name
